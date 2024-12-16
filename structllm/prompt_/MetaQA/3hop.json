@@ -1,0 +1,94 @@
+[
+    {
+      "role": "system",
+      "content": "Now you are learning to write conditional graph queries for natural language questions. \nThe conditional graph query function is:\ndef get_information(relation, tail_entity, head_entity):\n\"\"\"\n    This function retrieves information by querying a data source using a given relation and tail entity as search criteria.\n    \n    Args:\n        relation (str): The relation to the query that matches the tail_entity or contains the  head_entity which includes {'directed_by', 'has_imdb_rating', 'release_year', 'in_language', 'written_by', 'has_tags', 'has_imdb_votes', 'has_genre', 'starred_actors'}.\n        tail_entity (str): The tail entity associated with the relation.\n        head_entity (str): The head entity belongs to the relation.\n    Returns:\n        list: A list of query results.\n    \"\"\"\n\nTo finish the question correctly, you can the Set functions.\n\nSet functions:\n- set_difference(set1, set2)\n\nNote: \n1. In get_information function, tail_entity and head_entity cannot occur together."
+    },
+    {
+      "role": "user",
+      "content": "Question: who is listed as director of the films starred by [Titanic Town] actors"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the actors of [Titanic Town]\nQuery1: \"get_information(relation='starred_actors', head_entity='Titanic Town')\"\nStep2: Find movies that output_of_query1 acted in\nQuery2: \"get_information(relation='starred_actors', tail_entity='output_of_query1')\"\nStep3: Exclude [Titanic Town] from output_of_query2\nQuery3: \"set_difference(set1='output_of_query2', set2='Titanic Town')\"\nStep4: Find director of output_of_query3\nQuery4: \"get_information(relation='directed_by', head_entity='output_of_query3')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: the films that share actors with the film [The Harvey Girls] were in which genres"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the actors of [The Harvey Girls]\nQuery1: \"get_information(relation='starred_actors', head_entity='The Harvey Girls')\"\nStep2: Find movies that output_of_query1 acted in\nQuery2: \"get_information(relation='starred_actors', tail_entity='output_of_query1')\"\nStep3: Exclude [The Harvey Girls] from output_of_query2\nQuery3: \"set_difference(set1='output_of_query2', set2='The Harvey Girls')\"\nStep4: Find genre of output_of_query3\nQuery4: \"get_information(relation='has_genre', head_entity='output_of_query3')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: the movies that share actors with the movie [The Great Santini] were in which languages"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the actors of [The Great Santini]\nQuery1: \"get_information(relation='starred_actors', head_entity='The Great Santini')\"\nStep2: Find movies that output_of_query1 acted in\nQuery2: \"get_information(relation='starred_actors', tail_entity='output_of_query1')\"\nStep3: Exclude [The Great Santini] from output_of_query2\nQuery3: \"set_difference(set1='output_of_query2', set2='The Great Santini')\"\nStep4: Find language of output_of_query3\nQuery4: get_information(relation='in_language', head_entity='output_of_query3')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: when did the movies release whose actors also appear in the movie [Bigger Than Life]"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the actors of [Bigger Than Life]\nQuery1: \"get_information(relation='starred_actors', head_entity='Bigger Than Life')\"\nStep2: Find movies that output_of_query1 acted in\nQuery2: \"get_information(relation='starred_actors', tail_entity='output_of_query1')\"\nStep3: Exclude [Bigger Than Life] from output_of_query2\nQuery3: \"set_difference(set1='output_of_query2', set2='Bigger Than Life')\"\nStep4: Find release year of output_of_query3\nQuery4: \"get_information(relation='release_year', head_entity='output_of_query3')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: who acted in the movies directed by the director of [Some Mother's Son]"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the director of [Some Mother's Son]\nQuery1: \"get_information(relation='directed_by', head_entity='Some Mother's Son')\"\nStep2: Find movies that output_of_query1 directed\nQuery2: \"get_information(relation='directed_by', tail_entity='output_of_query1')\"\nStep3: Exclude [Some Mother's Son] from output_of_query2\nQuery3: \"set_difference(set1='output_of_query2', set2='Some Mother's Son')\"\nStep4: Find actor of output_of_query3\nQuery4: \"get_information(relation='starred_actors', head_entity='output_of_query3')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: what are the languages spoken in the films whose directors also directed [Police]"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the director of [Police]\nQuery1: \"get_information(relation='directed_by', head_entity='Police')\"\nStep2: Find movies that output_of_query1 directed\nQuery2: \"get_information(relation='directed_by', tail_entity='output_of_query1')\"\nStep3: Exclude [Police] from output_of_query2\nQuery3: \"set_difference(set1='output_of_query2', set2='Police')\"\nStep4: Find language of output_of_query3\nQuery4: \"get_information(relation='in_language', head_entity='output_of_query3')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: the films that share directors with the films [Following] are written by who"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the director of [Following]\nQuery1: \"get_information(relation='directed_by', head_entity='Following')\"\nStep2: Find movies that output_of_query1 directed\nQuery2: \"get_information(relation='directed_by', tail_entity='output_of_query1')\"\nStep3: Exclude [Following] from output_of_query2\nQuery3: \"set_difference(set1='output_of_query2', set2='Following')\"\nStep4: Find writer of output_of_query3\nQuery4: \"get_information(relation='written_by', head_entity='output_of_query3')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: who starred films for the screenwriter of [Deathtrap]"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the writer of [Deathtrap]\nQuery1: \"get_information(relation='written_by', head_entity='Deathtrap')\"\nStep2: Find movies that output_of_query1 write\nQuery2: \"get_information(relation='written_by', tail_entity='output_of_query1')\"\nStep3: Exclude [Deathtrap] from output_of_query2\nQuery3: \"set_difference(set1='output_of_query2', set2='Deathtrap')\"\nStep4: Find actor of output_of_query3\nQuery4: \"get_information(relation='starred_actors', head_entity='output_of_query3')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: who directed the movies written by the writer of [Millennium Actress]"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the writer of [Millennium Actress]\nQuery1: \"get_information(relation='written_by', head_entity='Millennium Actress')\"\nStep2: Find movies that output_of_query1 write\nQuery2: \"get_information(relation='written_by', tail_entity='output_of_query1')\"\nStep3: Exclude [Millennium Actress] from output_of_query2\nQuery3: \"set_difference(set1='output_of_query2', set2='Millennium Actress')\"\nStep4: Find director of output_of_query3\nQuery4: \"get_information(relation='directed_by', head_entity='output_of_query3')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: what types are the movies written by the writer of [Broadway Serenade]"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the writer of [Broadway Serenade]\nQuery1: \"get_information(relation='written_by', head_entity='Broadway Serenade')\"\nStep2: Find movies that output_of_query1 write\nQuery2: \"get_information(relation='written_by', tail_entity='output_of_query1')\"\nStep3: Exclude [Broadway Serenade] from output_of_query2\nQuery3: \"set_difference(set1='output_of_query2', set2='Broadway Serenade')\"\nStep4: Find genre of output_of_query3\nQuery4: \"get_information(relation='has_genre', head_entity='output_of_query3')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: the movies that share writers with the movie [The Wedding Party] were released in which years"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the writer of [The Wedding Party]\nQuery1: \"get_information(relation='written_by', head_entity='The Wedding Party')\"\nStep2: Find movies that output_of_query1 write\nQuery2: \"get_information(relation='written_by', tail_entity='output_of_query1')\"\nStep3: Exclude [The Wedding Party] from output_of_query2\nQuery3: \"set_difference(set1='output_of_query2', set2='The Wedding Party')\"\nStep4: Find release year of output_of_query3\nQuery4: \"get_information(relation='release_year', head_entity='output_of_query3')\""
+    }
+]

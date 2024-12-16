@@ -1,0 +1,8 @@
+numpy==1.24.4
+openai==1.13.3
+pandas==2.0.3
+Requests==2.31.0
+sentence-transformers==2.2.2
+torch==2.2.2
+tqdm==4.66.1
+chromadb==0.4.21

@@ -1,0 +1,70 @@
+[
+    {
+      "role": "system",
+      "content": "Now you are learning to write conditional graph queries for natural language questions. \nAnd conditional graph query function is:\ndef get_information(relation, tail_entity, head_entity, key, value):\n\"\"\"\n    This function retrieves information by querying a data source using a given relation and tail entity as search criteria.\n    \n    Args:\n        relation (str): The relation to the query that matches the tail_entity or head_entity.\n        tail_entity (str): The tail entity associated with the relation.\n        head_entity (str): The head entity belongs to the relation.\n        key (str):  The key to query that matches with time.\n        value (str):  The value associated with or belongs to the key.\n        \n    Returns:\n        list: A list of query results.\n    \"\"\"\n\nNote: you need to use keep(set, value) to filter the results for before or after question.\nYour task is to break down the original natural language question step by step with given relations and annotations. Following are some examples."
+    },
+    {
+      "role": "user",
+      "content": "Question: EATCS award was awarded to Moshe Vardi during the year\nRelations: ['award received']\nAnnotation: {'head': 'Moshe Vardi', 'tail': 'EATCS award'}"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Get the time of the EATCS award received by Moshe Vardi\nQuery1: \"get_information(head_entity='Moshe Vardi', relation='award received', tail_entity='EATCS award', key='time')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: In 1981 which award did Allan Edwall win\nRelations: ['award received']\nAnnotation: {'head': 'Allan Edwall', 'time': '1981'}"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Get the award received by Allan Edwall in 1981\nQuery1: \"get_information(head_entity='Allan Edwall', relation='award received', key='time', value='1981')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: The first time Gordon Campbell, Baron Campbell of Croy had been Member of the 44th Parliament of the United Kingdom\nRelations: ['position held']\nAnnotation: {'head': 'Gordon Campbell, Baron Campbell of Croy', 'tail': 'Member of the 44th Parliament of the United Kingdom', 'adj': 'first'}"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Get the time/year of the Gordon Campbell, Baron Campbell of Croy position held Member of the 44th Parliament of the United Kingdom\nQuery1: \"get_information(head_entity='Gordon Campbell, Baron Campbell of Croy', relation='position held', tail_entity='Member of the 44th Parliament of the United Kingdom', key='time')\"\nStep2: Get the min/first/earliest time/year of output_of_query1\nQuery2: \"min(set='output_of_query1')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: Who's the last team Roberto Colombo played on\nRelations: ['member of sports team']\nAnnotation: {'head': 'Roberto Colombo', 'adj': 'last'}"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Get the time of Roberto Colombo is member of sports team\nQuery1: \"get_information(head_entity='Roberto Colombo', relation='member of sports team', key='time')\"\nStep2: Get the last/max time output_of_query1\nQuery2: \"max(set='output_of_query1')\"\nStep3: Get the name of team Roberto Colombo is member of sports team when the time is output_of_query2\nQuery3: \"get_information(head_entity='Roberto Colombo', relation='member of sports team', key='time', value='output_of_query2')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: Who were the players playing in Sunderland A.F.C. with Chris Lumsdon?\nRelations: ['member of sports team']\nAnnotation: {'head': 'Chris Lumsdon', 'tail': 'Sunderland A.F.C.'}"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Get the time of Chris Lumsdon is member of sports team Sunderland A.F.C.\nQuery1: \"get_information(head_entity='Chris Lumsdon', relation='member of sports team', tail_entity='Sunderland A.F.C.', key='time')\"\nStep2: Get the players is member of sports team Sunderland A.F.C. when the time is output_of_query1\nQuery2: \"get_information(relation='member of sports team', tail_entity='Sunderland A.F.C.', key='time', value='output_of_query1')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: Who held the position of state treasurer when Michael Matheson was the Member of the 3rd Scottish Parliament\nRelations: ['position held']\nAnnotation: {'head': 'Michael Matheson', 'tail': 'Member of the 3rd Scottish Parliament'}, ['state treasurer']"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Get the time of Michael Matheson position held Member of the 3rd Scottish Parliament\nQuery1: \"get_information(head_entity='Michael Matheson', relation='position held', tail_entity='Member of the 3rd Scottish Parliament', key='time')\"\nStep2: Get the people position held is state treasurer when the time is output_of_query1\nQuery2: \"get_information(relation='position held', tail_entity='state treasurer', key='time', value='output_of_query1')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: Who were Member of the Swiss Federal Council after 18th century\nRelations: ['position held']\nAnnotation: {'tail': 'Member of the Swiss Federal Council', 'event_head': '18th century', 'type': 'after'}"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: To get the after, find the time of 18th century\nQuery1: \"get_information(head_entity='18th century', key='time')\"\nStep2: Find the max of output_of_query1\nQuery2: \"max(set='output_of_query1')\"\nStep3: Get the time of position held is Member of the Swiss Federal Council\nQuery3: \"get_information(relation='position held', tail_entity='Member of the Swiss Federal Council', key='time')\"\nStep4: Get the time of output_of_query3 after output_of_query2\nQuery4: \"keep(set='output_of_query3', value>'output_of_query2')\"\nStep5: Get the min time of output_of_query4\nQuery5: \"min(set='output_of_query4')\"\nStep6: Get the name whose position held is Member of the Swiss Federal Council when the time is output_of_query5\nQuery6: \"get_information(relation='position held', tail_entity='Member of the Swiss Federal Council', key='time', value='output_of_query5')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: Which team did Michael Gray play for before England national football team\nRelations: ['member of sports team']\nAnnotation: {'head': 'Michael Gray', 'tail': 'England national football team', 'type': 'before'}"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: To get the before, find the time of Michael Gray is member of sports team England national football team\nQuery1: \"get_information(head_entity='Michael Gray', relation='member of sports team', tail_entity='England national football team', key='time')\"\nStep2: Find the min of output_of_query1\nQuery2: \"min(set='output_of_query1')\"\nStep3: Get the time of Michael Gray is member of sports team\nQuery3: \"get_information(head_entity='Michael Gray', relation='member of sports team', key='time')\"\nStep4: Get the time of output_of_query3 before output_of_query2\nQuery4: \"keep(set='output_of_query3', value<output_of_query2)\"\nStep5: Get the max time of output_of_query4\nQuery5: \"max(set='output_of_query4')\"\nStep6: Get the name of team Michael Gray is member of sports team when the time is output_of_query5\nQuery6: \"get_information(head_entity='Michael Gray', relation='member of sports team', key='time', value='output_of_query5')\""
+    }
+]

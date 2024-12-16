@@ -1,0 +1,110 @@
+[
+    {
+      "role": "system",
+      "content": "Now you are learning to write conditional graph queries for natural language questions. \nThe conditional graph query function is:\ndef get_information(relation, tail_entity, head_entity, key, value):\n\"\"\"\n    This function retrieves information by querying a data source using a given relation and tail entity as search criteria.\n    \n    Args:\n        relation (str): The relation to the query that matches the tail_entity or contains the  head_entity which includes {'directed_by', 'has_imdb_rating', 'release_year', 'in_language', 'written_by', 'has_tags', 'has_imdb_votes', 'has_genre', 'starred_actors'}.\n        tail_entity (str): The tail entity associated with the relation.\n        head_entity (str): The head entity belongs to the relation.\n        key (str):  The key to query that matches the tail_entity or head_entity.\n        value (str):  The value associated with or belongs to the key.\n        \n    Returns:\n        list: A list of query results.\n    \"\"\"\n\nTo finish the question correctly, you can combine the Set and Calculator functions.\n\nSet functions:\n- set_union(set1, set2)\n- set_intersection(set1, set2)\n- set_difference(set1, set2)\n- set_negation(set1)\n...\n\nNote: \n1. In get_information function, tail_entity and head_entity cannot occur together.\n"
+    },
+    {
+      "role": "user",
+      "content": "Question: what movies did [Temuera Morrison] act in"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the movies that [Temuera Morrison] acted in\nQuery1: \"get_information(relation='starred_actors', tail_entity='Temuera Morrison')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: what films did [Charles Bail] direct"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find movies that [Charles Bail] directs\nQuery1: \"get_information(relation='directed_by', tail_entity='Charles Bail')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: who acted in [Red River]"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find starred_actors in [Red River]\nQuery1: \"get_information(relation='starred_actors', head_entity='Red River')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: the director of [Cube Zero] was who"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find director of [Cube Zero]\nQuery1: \"get_information(relation='directed_by', head_entity='Cube Zero')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: what is the genre of the film [The Darjeeling Limited]"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find genre of [The Darjeeling Limited]\nQuery1: \"get_information(relation='has_genre', head_entity='The Darjeeling Limited')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: how would people rate [Little Women]"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find rate of [Little Women]\nQuery1: \"get_information(relation='has_imdb_rating', head_entity='Little Women')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: what is the primary language in [The Criminal Life of Archibaldo de la Cruz]"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find language of [The Criminal Life of Archibaldo de la Cruz]\nQuery1: \"get_information(relation='in_language', head_entity='The Criminal Life of Archibaldo de la Cruz')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: what are some words that describe movie [The Omega Man]"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find tags of [The Omega Man]\nQuery1: \"get_information(relation='has_tags', head_entity='The Omega Man')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: who's the writer of [Experiment Perilous]"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find tags of [The Omega Man]\nQuery1: \"get_information(relation='written_by', head_entity='Experiment Perilous')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: when was the movie [BUtterfield 8] released"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find released year of [BUtterfield 8]\nQuery1: \"get_information(relation='release_year', head_entity='BUtterfield 8')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: which films can be described by [romeo and juliet]"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find films which has tags of [romeo and juliet]\nQuery1: \"get_information(relation='has_tags', tail_entity='romeo and juliet')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: which movies was [Jeff Stanzler] the writer of"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find films whose writer is [Jeff Stanzler]\nQuery1: \"get_information(relation='written_by', tail_entity='Jeff Stanzler')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: what films are about [anthony's mackie]"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find films which has tags of [anthony's mackie]\nQuery1: \"get_information(relation='has_tags', tail_entity='anthony's mackie')\""
+    }
+]

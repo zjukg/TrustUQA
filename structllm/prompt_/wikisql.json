@@ -1,0 +1,70 @@
+[
+    {
+      "role": "system",
+      "content": "Now you are learning to write conditional graph queries for natural language questions. \nAnd conditional graph query function is:\ndef get_information(relation, tail_entity, head_entity, key, value):\n\"\"\"\n    This function retrieves information by querying a data source using a given relation and tail entity as search criteria.\n    \n    Args:\n        relation (str): The relation to the query that matches the tail_entity or contains the  head_entity.\n        tail_entity (str): The tail entity associated with the relation.\n        head_entity (str): The head entity belongs to the relation.\n        key (str):  The key to query that matches the tail_entity or head_entity.\n        value (str):  The value associated with or belongs to the key.\n        \n    Returns:\n        list: A list of query results.\n    \"\"\"\n\nTo finish the question correctly, you can combine the Set and Calculator functions.\n\nSet functions:\n- set_union(set1, set2)\n- set_intersection(set1, set2)\n- set_difference(set1, set2)\n- set_negation(set)\n...\n\nYour task is to break down the original natural language problem step by step with given all relation types and a corresponding example as schema with the format of \"relation:example\". Following are some examples.\n\nNote: in get_information function, tail_entity and head_entity cannot occur together."
+    },
+    {
+      "role": "user",
+      "content": "Schema: Pole Position:Robbie Kerr|Circuit:Oulton Park|Round:5|Fastest Lap:Heikki Kovalainen|Winning team:Carlin Motorsport|Winning driver:Robbie Kerr|Date:15 September.\nQuestion: How many pole positions for round 20?"
+    },
+    {
+      "role": "assistant",
+      "content": "## Target type: {number}\n## Query:\nStep1: Find the pole positions for round 20\nQuery1: \"get_information(relation='Pole Position', tail_entity='round 20')\"\nStep2: Calculate the count of output_of_query1\nQuery2: \"count(set='output_of_query1')\""
+    },
+    {
+      "role": "user",
+      "content": "Schema: Competition:2006 FIFA World Cup qualification|Date:October 8, 2005|Result:1–2|Score:4–2|Venue:Orange Bowl , Miami , United States|Goal:5.\nQuestion: Which Competition has a Venue of estadio alfonso lastras, san luis potosí, mexico, and a Goal larger than 15?"
+    },
+    {
+      "role": "assistant",
+      "content": "## Target type: {competition}\n## Query:\nStep1: Find the entity that has venue of \"estadio alfonso lastras, san luis potosí, mexico\"\nQuery1: \"get_information(relation='Venue', tail_entity='estadio alfonso lastras, san luis potosí, mexico')\"\nStep2: Find the entity that has goal larger than 15\nQuery2: \"get_information(relation='Goal', tail_entity>'15')\"\nStep3: Get the intersection of output_of_query1 and output_of_query2\nQuery3: \"set_intersection(set1 = 'output_of_query1', set2 = 'output_of_query2')\"\nStep4: Find the competition of output_of_query3\nQuery4: \"get_information(relation='Competition', head_entity='output_of_query3')\""
+    },
+    {
+      "role": "user",
+      "content": "Schema: College:Harding|Position:Tackle|NFL Team:Buffalo Bills|Player:Brett Miller|Pick #:135.\nQuestion: What is the highest pick number the los angeles raiders got?"
+    },
+    {
+      "role": "assistant",
+      "content": "## Target type: {pick number}\n## Query:\nStep1: Find the entity that is the Los Angeles Raiders\nQuery1: \"get_information(relation='NFL Team', tail_entity='Los Angeles Raiders')\"\nStep2: Find the highest pick number of output_of_query1\nQuery2: \"get_information(relation='Pick #', head_entity='output_of_query1')\"\nStep3: Calculate max of output_of_query2\nQuery3: \"max(set1='output_of_query2')\""
+    },
+    {
+      "role": "user",
+      "content": "Schema: Name origin:Susan B.; American suffrage leader (1820–1906).|Diameter (km):169.0|Longitude:195.5E|Year named:1991|Name:Garland Patera|Latitude:6.5S.\nQuestion: What is the longitude of the feature named Razia Patera?"
+    },
+    {
+      "role": "assistant",
+      "content": "## Target type: {longitude}\n## Query:\nStep1: Find the entity named Razia Patera\nQuery1: \"get_information(relation='Name', tail_entity='Razia Patera')\"\nStep2: Find the longitude of output_of_query1\nQuery2: \"get_information(relation='Longitude', head_entity='output_of_query1')\""
+    },
+    {
+      "role": "user",
+      "content": "Schema: Winnings:$98,245|Driver:Scott Riggs|Make:Chevrolet|Car #:18|Laps:491|Points:155.\nQuestion: What is the average car number of all the drivers who have won $111,683?"
+    },
+    {
+      "role": "assistant",
+      "content": "## Target type: {car number}\n## Query:\nStep1: Find the entity whose won is $111,683\nQuery1: \"get_information(relation='Winnings', tail_entity='111,683')\"\nStep2: Find the car number of output_of_query1\nQuery2: \"get_information(relation='Car #', head_entity='output_of_query1')\"\nStep3: Calculate the average of output_of_query2\nQuery3: \"mean(set='output_of_query2')\""
+    },
+    {
+      "role": "user",
+      "content": "Schema: Draws:3|Club:Real Jaén CF|Losses:20|Goal Difference:1|Goals for:37|Goals against:30|Wins:8|Points:15|Position:9|Played:30.\nQuestion: How many Wins have Goals against smaller than 30, and Goals for larger than 25, and Draws larger than 5?"
+    },
+    {
+      "role": "assistant",
+      "content": "## Target type: {number of wins}\n## Query:\nStep1: Find the Wins with Goals against smaller than 30\nQuery1: \"get_information(relation='Goals against', tail_entity<'30')\"\nStep2: Find the Wins with Goals for larger than 25\nQuery2: \"get_information(relation='Goals for', tail_entity>'25')\"\nStep3: Find the Wins with Draws larger than 5\nQuery3: \"get_information(relation='Draws', tail_entity>'5')\"\nStep4: Get the intersection of output_of_query1, output_of_query2, and output_of_query3\nQuery4: \"set_intersection(set1='output_of_query1', set2='output_of_query2', set3='output_of_query3')\"\nStep5: Get the count of output_of_query4\nQuery5: \"count(set='output_of_query4')\""
+    },
+    {
+      "role": "user",
+      "content": "Schema: Record Set:9 nominations|Year:1967|Actor:Henry Fonda|Notes:Skippy|Superlative:Oldest Winner.\nQuestion: What year was the the youngest nominee a winner?"
+    },
+    {
+      "role": "assistant",
+      "content": "## Target type: {year}\n## Query:\nStep1: Find the youngest nominee who was a winner\nQuery1: \"get_information(relation='Superlative', tail_entity='youngest nominee')\"\nStep2: Get the year of output_of_query1\nQuery2: \"get_information(relation='Year', head_entity='output_of_query1')\""
+    },
+    {
+      "role": "user",
+      "content": "Schema: Season:1965/66|Name:Luis Arconada|minutes:709|Club:Atlético Madrid|Rank:2.\nQuestion: What are the minutes of the Player from Real Madrid Club with a Rank of 7 or larger?"
+    },
+    {
+      "role": "assistant",
+      "content": "## Target type: {minutes}\n## Query:\nStep1: Find the entity that belongs to Real Madrid Club\nQuery1: \"get_information(relation='Club', tail_entity='Real Madrid Club')\"\nStep2: Find the entity with a Rank of 7 or larger\nQuery2: \"get_information(relation='Rank', tail_entity>='7')\"\nStep3: Get the intersection of output_of_query1 and output_of_query2\nQuery3: \"set_intersection(set1 = 'output_of_query1', set2 = 'output_of_query2')\"\nStep4: Get the minutes of output_of_query3\nQuery4: \"get_information(relation='minutes', head_entity='output_of_query3')\""
+    }
+]

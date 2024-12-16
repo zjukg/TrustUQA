@@ -1,0 +1,38 @@
+[
+    {
+      "role": "system",
+      "content": "Now you are learning to write conditional graph queries for natural language questions. \nAnd conditional graph query function is:\ndef get_information(relation, tail_entity, head_entity):\n\"\"\"\n    This function retrieves information by querying a data source using a given relation and tail entity as search criteria.\n    \n    Args:\n        relation (str): The relation to the query that matches the tail_entity or contains the  head_entity.\n        tail_entity (str): The tail entity associated with the relation in TopicEntityName.\n        head_entity (str): The head entity belongs to the relation in TopicEntityName.\n\n    Returns:\n        list: A list of query results.\n    \"\"\"\n\nYour task is to use the relation in First_step in the first step and Second_step for second (if necessary) in which the format is given with [head, relation, tail].\n\nNote: \n1. In get_information function, tail_entity and head_entity cannot occur together."
+    },
+    {
+      "role": "user",
+      "content": "Question: what organization did dr. carter g. woodson found?\nTopicEntityName: ['Carter G. Woodson']\nFirst_step: ['Carter G. Woodson', 'organization.organization_founder.organizations_founded', 'Association for the Study of African American Life and History']|['Carter G. Woodson', 'people.person.nationality', 'United States of America']\nSecond_step: ['Carter G. Woodson', 'organization.organization_founder.organizations_founded', 'Association for the Study of African American Life and History']|['Carter G. Woodson', 'people.person.nationality', 'United States of America']|['African American', 'book.book_subject.works', \"Looking at the World through Michael Jackson's Left Eye (Part 2)\"]|['Mobile', 'location.location.people_born_here', 'JaMarcus Russell']|['United Kingdom', 'location.country.second_level_divisions', 'Midlothian']|['Montgomery Improvement Association', 'organization.organization.founders', 'Martin Luther King, Jr.']|['Austin', 'base.biblioness.bibs_location.country', 'United States of America']|['United States of America', 'government.governmental_jurisdiction.governing_officials', 'Mark Takano']|['Jamaica Island', 'location.location.contains', 'Cockpit Country']"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Get the organizations founded by Carter G. Woodson\nQuery1: \"get_information(relation='organization.organization_founder.organizations_founded', head_entity='Carter G. Woodson')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: what did ronnie radke do?\nTopicEntityName: ['Ronnie Radke']\nFirst_step: ['Ronnie Radke', 'people.person.profession', 'Singer-songwriter']\nSecond_step: ['Ronnie Radke', 'people.person.profession', 'Singer-songwriter']|['Mobile', 'location.location.people_born_here', 'JaMarcus Russell']|['Dance music', 'music.genre.albums', 'Number Ones']|['United States of America', 'government.governmental_jurisdiction.governing_officials', 'Mark Takano']|['Jamaica Island', 'location.location.contains', 'Cockpit Country']"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Get the profession of Ronnie Radke\nQuery1: \"get_information(relation='people.person.profession', head_entity='Ronnie Radke')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: where is downtown littleton?\nTopicEntityName: ['Littleton, Colorado']\nFirst_step: ['Arapahoe County', 'location.location.time_zones', 'Mountain Time Zone']|['Littleton', 'location.location.containedby', 'United States of America']\nSecond_step: ['Arapahoe County', 'location.location.time_zones', 'Mountain Time Zone']|['Littleton', 'location.location.containedby', 'United States of America']|['Central Time Zone', 'time.time_zone.locations_in_this_time_zone', 'Merritt, Illinois']|['Denmark', 'topic_server.population_number', '\"3835\"']|['Bob Marley', 'people.person.gender', 'Male']|['Australian dollar', 'common.topic.alias', '\"AUD\"']|['United States of America', 'government.governmental_jurisdiction.governing_officials', 'Mark Takano']|['Jamaica Island', 'location.location.contains', 'Cockpit Country']"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Get the containedby location of Littleton, Colorado\nQuery1: \"get_information(relation='location.location.containedby', head_entity='Littleton, Colorado')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: what is south america made up of?\nTopicEntityName: ['South America']\nFirst_step: ['South America', 'location.location.contains', 'Loncomilla River']\nSecond_step: ['South America', 'location.location.contains', 'Loncomilla River']|['Saint Thomas Parish', 'location.location.partially_contains', 'Blue Mountain Peak']|['Turner Field', 'location.location.events', '1999 World Series']|['Mississippi River', 'location.location.partially_containedby', 'Illinois']|['Roman Empire', 'location.country.official_language', 'Latin Language']|['Jamaica', 'location.country.languages_spoken', 'Jamaican Creole English Language']|['France', 'sports.sports_team_location.teams', 'France national baseball team']|['Prison Oval', 'common.topic.notable_types', 'Structure']|['Egypt', 'location.country.form_of_government', 'Semi-presidential system']|['jm', 'type.object.name', '\"jm\"']|['Franklin', 'symbols.namesake.named_after', 'Benjamin Franklin']|['United States of America', 'government.governmental_jurisdiction.governing_officials', 'Mark Takano']|['Lucea West River', 'location.location.containedby', 'Jamaica']"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Get the components that make up South America\nQuery1: \"get_information(relation='location.location.contains', head_entity='South America')\""
+    }
+]

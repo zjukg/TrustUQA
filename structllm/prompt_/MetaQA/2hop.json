@@ -1,0 +1,126 @@
+[
+    {
+      "role": "system",
+      "content": "Now you are learning to write conditional graph queries for natural language questions. \nThe conditional graph query function is:\ndef get_information(relation, tail_entity, head_entity):\n\"\"\"\n    This function retrieves information by querying a data source using a given relation and tail entity as search criteria.\n    \n    Args:\n        relation (str): The relation to the query that matches the tail_entity or contains the  head_entity which includes {'directed_by', 'has_imdb_rating', 'release_year', 'in_language', 'written_by', 'has_tags', 'has_imdb_votes', 'has_genre', 'starred_actors'}.\n        tail_entity (str): The tail entity associated with the relation.\n        head_entity (str): The head entity belongs to the relation.\n    Returns:\n        list: A list of query results.\n    \"\"\"\n\nTo finish the question correctly, you can the Set functions.\n\nSet functions:\n- set_difference(set1, set2)\n\nNote: \n1. In get_information function, tail_entity and head_entity cannot occur together.\n"
+    },
+    {
+      "role": "user",
+      "content": "Question: which films share the same actor of [The Don't Amityville Curse]"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the actors of [The Don't Amityville Curse]\nQuery1: \"get_information(relation='starred_actors', head_entity='The Don't Amityville Curse')\"\nStep2: Find movies that output_of_query1 acted in\nQuery2: \"get_information(relation='starred_actors', tail_entity='output_of_query1')\"\nStep3: Exclude [The Don't Amityville Curse] from output_of_query2\nQuery3: \"set_difference(set1='output_of_query2', set2='The Don't Amityville Curse')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: the director of [The Slugger's Wife] is also the director of which movies"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the director of [The Slugger's Wife]\nQuery1: \"get_information(relation='directed_by', head_entity='The Slugger's Wife')\"\nStep2: Find movies that output_of_query1 directed\nQuery2: \"get_information(relation='directed_by', tail_entity='output_of_query1')\"\nStep3: Exclude [The Slugger's Wife] from output_of_query2\nQuery3: \"set_difference(set1='output_of_query2', set2='The Slugger's Wife')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: the screenwriter of [Taxidermia] also wrote which films"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the writer of [Taxidermia]\nQuery1: \"get_information(relation='written_by', head_entity='Taxidermia')\"\nStep2: Find movies that output_of_query1 wrote\nQuery2: \"get_information(relation='written_by', tail_entity='output_of_query1')\"\nStep3: Exclude [Taxidermia] from output_of_query2\nQuery3: \"set_difference(set1='output_of_query2', set2='Taxidermia')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: who acted together/co-star with [Tania Raymonde]"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the movies that [Tania Raymonde] acted in\nQuery1: \"get_information(relation='starred_actors', tail_entity='Tania Raymonde')\"\nStep2: Find actors of output_of_query1\nQuery2: \"get_information(relation='starred_actors', head_entity='output_of_query1')\"\nStep3: Exclude [Tania Raymonde] from output_of_query2\nQuery3: \"set_difference(set1='output_of_query2', set2='Tania Raymonde')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: who are the directors of the movies acted by [Khalil Kain]"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the movies that [Khalil Kain] acted in\nQuery1: \"get_information(relation='starred_actors', tail_entity='Khalil Kain')\"\nStep2: Find directors of output_of_query1 \nQuery2: \"get_information(relation='directed_by', head_entity='output_of_query1')\"\nStep3: Exclude [Khalil Kain] from output_of_query2\nQuery3: \"set_difference(set1='output_of_query2', set2='Khalil Kain')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: what genres do the movies acted by [Ulrich M\\u00fche] fall under"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the movies that [Ulrich M\\u00fche] acted in\nQuery1: \"get_information(relation='starred_actors', tail_entity='Ulrich M\\u00fche')\"\nStep2: Find genres of output_of_query1\nQuery2: \"get_information(relation='has_genre', head_entity='output_of_query1')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: the films acted by [Guglielmo Barnab\\u00f2] were written by who"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the movies that [Guglielmo Barnab\\u00f2] acted in\nQuery1: \"get_information(relation='starred_actors', tail_entity='Guglielmo Barnab\\u00f2')\"\nStep2: Find the writer of output_of_query1\nQuery2: \"get_information(relation='written_by', head_entity='output_of_query1')\"\nStep3: Exclude [Guglielmo Barnab\\u00f2] from output_of_query2\nQuery3: \"set_difference(set1='output_of_query2', set2='Guglielmo Barnab\\u00f2')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: which directors co-directed films with [Graham Baker]"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the movies that [Graham Baker] directed\nQuery1: \"get_information(relation='directed_by', tail_entity='Graham Baker')\"\nStep2: Find the director of output_of_query1\nQuery2: \"get_information(relation='directed_by', head_entity='output_of_query1')\"\nStep3: Exclude [Graham Baker] from output_of_query2\nQuery3: \"set_difference(set1='output_of_query2', set2='Graham Baker')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: what genres do the movies directed by [Clark Gregg] fall under"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the movies that [Clark Gregg] directed\nQuery1: \"get_information(relation='directed_by', tail_entity='Clark Gregg')\"\nStep2: Find genres of output_of_query1\nQuery2: \"get_information(relation='has_genre', head_entity='output_of_query1')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: what are the languages spoken in the films directed by [Joel Zwick]"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the movies that [Joel Zwick] directed\nQuery1: \"get_information(relation='directed_by', tail_entity='Joel Zwick')\"\nStep2: Find language of output_of_query1\nQuery2: \"get_information(relation='in_language', head_entity='output_of_query1')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: when were the films directed by [David Green] released"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the movies that [David Green] directed\nQuery1: \"get_information(relation='directed_by', tail_entity='David Green')\"\nStep2: Find release year of output_of_query1\nQuery2: \"get_information(relation='release_year', head_entity='output_of_query1')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: the movies written by [John Alan Schwartz] starred who"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the movies that [John Alan Schwartz] written\nQuery1: \"get_information(relation='written_by', tail_entity='John Alan Schwartz')\"\nStep2: Find actor of output_of_query1\nQuery2: \"get_information(relation='starred_actors', head_entity='output_of_query1')\"\nStep3: Exclude [John Alan Schwartz] from output_of_query2\nQuery3: \"set_difference(set1='output_of_query2', set2='John Alan Schwartz')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: who are the directors of the films written by [Laura Kerr]"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the movies that [Laura Kerr] written\nQuery1: \"get_information(relation='written_by', tail_entity='Laura Kerr')\"\nStep2: Find director of output_of_query1\nQuery2: \"get_information(relation='directed_by', head_entity='output_of_query1')\"\nStep3: Exclude [Laura Kerr] from output_of_query2\nQuery3: \"set_difference(set1='output_of_query2', set2='Laura Kerr')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: the screenwriter [Oscar Wilde] wrote films together with who"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the movies that [Oscar Wilde] has written\nQuery1: \"get_information(relation='written_by', tail_entity='Oscar Wilde')\"\nStep2: Find writer of output_of_query1\nQuery2: \"get_information(relation='written_by', head_entity='output_of_query1')\"\nStep3: Exclude [Oscar Wilde] from output_of_query2\nQuery3: \"set_difference(set1='output_of_query2', set2='Oscar Wilde')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: what types are the films written by [Stan Winston]"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Find the movies that [Stan Winston] has written\nQuery1: \"get_information(relation='written_by', tail_entity='Stan Winston')\"\nStep2: Find genre of output_of_query1\nQuery2: \"get_information(relation='has_genre', head_entity='output_of_query1')\""
+    }
+]

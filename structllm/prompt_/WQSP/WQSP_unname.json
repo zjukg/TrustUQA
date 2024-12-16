@@ -1,0 +1,54 @@
+[
+    {
+      "role": "system",
+      "content": "Now you are learning to write conditional graph queries for natural language questions. \nAnd conditional graph query function is:\ndef get_information(relation, tail_entity, head_entity):\n\"\"\"\n    This function retrieves information by querying a data source using a given relation and tail entity as search criteria.\n    \n    Args:\n        relation (str): The relation to the query that matches the tail_entity or contains the  head_entity.\n        tail_entity (str): The tail entity.\n        head_entity (str): The head entity.\n\n    Returns:\n        list: A list of query results.\n    \"\"\"\n\nYour task is to use the relation in First_step in the first step and Second_step for second (if necessary).\n\nNote: \n1. In get_information function, tail_entity and head_entity cannot occur together."
+    },
+    {
+      "role": "user",
+      "content": "Question: where is the nation of palestine?\nTopicEntityName: ['Palestine']\nFirst_step: ['location.location.contains', 'location.location.containedby']\nSecond_step: ['base.locations.continents.countries_within', 'location.location.contains', 'location.location.containedby', 'location.location.partially_contains', 'base.biblioness.bibs_location.country', 'location.location.events']"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Get the nation of Palestine\nQuery1: \"get_information(relation='location.location.containedby', head_entity='Palestine')\""
+    },
+    {
+      "role": "user",
+      "content": "Question: who does nikki reed play in the movie twilight?\nTopicEntityName: ['Nikki Reed']\nFirst_step: ['film.actor.film']\nSecond_step: ['government.politician.government_positions_held', 'topic_server.population_number', 'film.film.country', 'film.actor.film', 'people.person.place_of_birth', 'film.film.directed_by', 'sports.pro_athlete.career_start', 'people.person.profession', 'film.performance.character', 'music.artist.genre', 'people.deceased_person.place_of_death', 'film.film.production_companies', 'location.location.time_zones', 'people.person.religion', 'film.film.starring', 'people.person.nationality', 'travel.tourist_attraction.near_travel_destination', 'common.topic.notable_types', 'government.government_position_held.governmental_body', 'film.film.language', 'film.performance.film', 'film.film.genre', 'book.written_work.subjects', 'location.location.containedby']"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Get the film that Nikki Reed acted in\nQuery1: \"get_information(relation='film.actor.film', head_entity='Nikki Reed')\"\nStep2: Get the character name of output_of_query1\nQuery2: \"get_information(relation='film.performance.character', head_entity=output_of_query1)\""
+    },
+    {
+      "role": "user",
+      "content": "Question: where did chris cuomo go?\nTopicEntityName: ['Andrew Cuomo']\nFirst_step: ['people.person.education']\nSecond_step: ['government.politician.government_positions_held', 'topic_server.population_number', 'film.film.country', 'location.location.containedby', 'people.person.profession', 'people.person.education', 'sports.pro_athlete.teams', 'people.deceased_person.place_of_death', 'people.person.nationality', 'travel.tourist_attraction.near_travel_destination', 'music.artist.track_contributions', 'common.topic.notable_types', 'government.government_position_held.governmental_body', 'location.location.contains', 'government.government_office_or_title.office_holders', 'education.education.institution', 'film.film.starring', 'government.government_position_held.office_holder']"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Get the education of Andrew Cuomo\nQuery1: \"get_information(relation='people.person.education', head_entity='Andrew Cuomo')\"\nStep2: Get the institution of output_of_query1\nQuery2: \"get_information(relation='education.education.institution', head_entity=output_of_query1)\""
+    },
+    {
+      "role": "user",
+      "content": "Question: who was the leader of the ussr in 1948?\nTopicEntityName: ['Soviet Union']\nFirst_step: ['location.location.events', 'organization.organization_founder.organizations_founded', 'common.topic.notable_types', 'government.governmental_jurisdiction.governing_officials', 'location.location.contains']\nSecond_step: ['government.politician.government_positions_held', 'location.location.adjoin_s', 'topic_server.population_number', 'base.locations.countries.continent', 'location.country.form_of_government', 'base.biblioness.bibs_location.loc_type', 'organization.organization_founder.organizations_founded', 'book.author.works_written', 'location.country.iso_numeric', 'location.location.events', 'common.topic.notable_types', 'government.government_office_category.officeholders', 'location.location.contains', 'government.government_position_held.basic_title', 'base.activism.activist.area_of_activism', 'government.government_position_held.jurisdiction_of_office', 'government.governmental_jurisdiction.governing_officials', 'location.country.capital', 'government.government_position_held.office_holder']"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Get the governing_officials of Soviet Union\nQuery1: \"get_information(relation='government.governmental_jurisdiction.governing_officials', head_entity='Soviet Union')\"\nStep2: Get the office_holder of output_of_query1\nQuery2: \"get_information(relation='government.government_position_held.office_holder', head_entity=output_of_query1)\""
+    },
+    {
+      "role": "user",
+      "content": "Question: who does jr smith play for?\nTopicEntityName: ['J. R. Smith']\nFirst_step: ['sports.pro_athlete.teams']\nSecond_step: ['film.film.music', 'topic_server.population_number', 'film.film.country', 'people.person.place_of_birth', 'location.location.containedby', 'music.album.release_date', 'sports.sports_league.teams', 'people.person.profession', 'sports.pro_athlete.teams', 'music.artist.genre', 'government.government_position_held.to', 'sports.sports_team_roster.team', 'location.location.time_zones', 'people.person.religion', 'people.person.nationality', 'film.writer.film', 'media_common.netflix_title.netflix_genres', 'common.topic.notable_types', 'film.film.language', 'government.government_position_held.jurisdiction_of_office', 'fictional_universe.fictional_character.character_created_by', 'base.culturalevent.event.entity_involved', 'government.political_district.representatives', 'film.film.starring']"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Get the teams of J. R. Smith\nQuery1: \"get_information(relation='sports.pro_athlete.teams', head_entity='J. R. Smith')\"\nStep2: Get roster of output_of_query1\nQuery2: \"get_information(relation='sports.sports_team_roster.team', head_entity=output_of_query1)\""
+    },
+    {
+      "role": "user",
+      "content": "Question: who did heinrich himmler marry?\nFirst_step: ['people.person.spouse_s', 'base.activism.activist.area_of_activism']\nSecond_step: ['people.marriage.type_of_union', 'government.politician.government_positions_held', 'people.person.place_of_birth', 'people.person.spouse_s', 'sports.pro_athlete.career_start', 'music.group_member.instruments_played', 'people.person.profession', 'symbols.namesake.named_after', 'people.person.languages', 'people.deceased_person.place_of_death', 'people.person.children', 'people.person.religion', 'influence.influence_node.influenced', 'influence.influence_node.influenced_by', 'people.person.nationality', 'people.marriage.spouse', 'people.person.date_of_birth', 'sports.sports_team_owner.teams_owned']"
+    },
+    {
+      "role": "assistant",
+      "content": "Step1: Get the Person_Spouse of Heinrich Himmler\nQuery1: \"get_information(relation='people.person.spouse_s', head_entity='Heinrich Himmler')\"\nStep2: Get name of output_of_query1\nQuery2: \"get_information(relation='people.marriage.spouse', head_entity=output_of_query1)\""
+    }
+]
