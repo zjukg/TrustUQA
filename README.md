@@ -62,7 +62,7 @@ pip install -r requirements.txt
 Please consider citing this paper if you use the ``code`` or ``data`` from our work. Thanks a lot :)
 
 ```bigquery
-@article{DBLP:journals/corr/abs-2406-18916,
+@inproceedings{DBLP:conf/aaai/TrustUQA,
   author       = {Wen Zhang and
                   Long Jin and
                   Yushan Zhu and
@@ -74,15 +74,8 @@ Please consider citing this paper if you use the ``code`` or ``data`` from our w
                   Huajun Chen},
   title        = {TrustUQA: {A} Trustful Framework for Unified Structured Data Question
                   Answering},
-  journal      = {CoRR},
-  volume       = {abs/2406.18916},
-  year         = {2024},
-  url          = {https://doi.org/10.48550/arXiv.2406.18916},
-  doi          = {10.48550/ARXIV.2406.18916},
-  eprinttype    = {arXiv},
-  eprint       = {2406.18916},
-  timestamp    = {Mon, 22 Jul 2024 14:28:35 +0200},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2406-18916.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+  booktitle    = {{AAAI}},
+  publisher    = {{AAAI} Press},
+  year         = {2025}
 }
 ```
