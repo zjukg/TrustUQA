@@ -3,7 +3,6 @@ from tqdm import tqdm
 import argparse
 import os
 import structllm as sllm
-from test_backend import csv2CG
 import random
 import multiprocessing as mp
 import sys
@@ -99,7 +98,7 @@ def get_cgdata(folder_path, error_file_list):
                 table_name = path_of_file[path_of_file.find('/', path_of_file.find('/') + 1) + 1:].split('.')[0]
             
             try:
-                test_table_ = csv2CG(path_of_file)
+                test_table_ = sllm.translate2CGdata.csv2CG(path_of_file)
                 table_data[table_name] = sllm.cg.data(test_table_['triples'], test_table_['entities_2_line'], test_table_['all_lines_id'])
             except:
                 f.write(table_name)

@@ -44,23 +44,31 @@ def tableqa(args, question, table_data, collection=None):
                 if target_type == None: res, mid_output = table_data.excute_query(args, id_query, target_type=None, node_query=text_query, task=step_query, question=question)
                 else: res, mid_output = table_data.excute_query(args, id_query, target_type=target_type[0], node_query=text_query, task=step_query, question=question)
                 
-            except openai.BadRequestError as e: # if '$.input' is invalid
+            except openai.BadRequestError as e: # 非法输入 '$.input' is invalid. query返回结果为：请输入详细信息等 
                 print(e)
                 total_num += 1
                 continue
 
-            except IndexError as e:
+            except IndexError as e: # 得不到正确格式的query: set1=(fastest car)
                 print(e)
-                total_num += 1
+                total_num += 1 # 防止卡死
                 continue
 
-            except openai.APITimeoutError as e:
+            except openai.APITimeoutError as e: # 超时
                 print(e)
-                total_num += 1
+                total_num += 1 # 防止卡死
+                continue
+                 
+            except TypeError as e:
+                print("Caught a TypeError while iterating:", e)
                 continue
 
             except ValueError as e: # maximum context length
                 print(e)
+                continue
+
+            except Exception as e: # 其他错误
+                print(f"other error: {e}")
                 continue
             
             total_num += 1

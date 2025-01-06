@@ -53,14 +53,6 @@ def evaluate(args):
     simple_acc = []
     complex_acc = []
 
-    # question_list = []
-    # with open("dynamic_output/cron/test100_TopK_DPR/all_result.txt", 'r') as f:
-    #     for line in f:
-    #         line = json.loads(line.strip())
-    #         # import pdb; pdb.set_trace()
-    #         question = line['question']
-    #         question_list.append(question)
-
     with open(args.ori_path, 'r') as f:
         for line in f:
             line = json.loads(line.strip())
@@ -73,7 +65,6 @@ def evaluate(args):
 
             prediction = get_selfconsistency_res(prediction)
             
-            # if question not in question_list: continue
 
             flag = 0
             if evaluate_cron(prediction, label): # final_prediction in set(label):

@@ -134,8 +134,8 @@ def read_tempKG(args):
     
     KGQA_data = get_tempKGquestion(args.data_path)
     if args.retriever is not None:
-        assert args.train_folder_path != None, "train_folder_path is None"
-        train_tkg_data = get_tempKGquestion(args.train_folder_path)
+        # assert args.train_folder_path != None, "train_folder_path is None"
+        train_tkg_data = get_tempKGquestion(args.data_path.replace("test", "valid"))
         train_data = dict()
         for item in train_tkg_data:
             train_data[item.question] = {
@@ -246,3 +246,45 @@ def read_wqsp(args):
     KGQA_data = get_wqsp_question(args.data_path)
 
     return KG_data, KGQA_data
+
+def read_csv(csv_file):
+    with open(csv_file, 'r', )as f:
+        table=[]
+        for line in f.readlines():
+            table.append(line.split('\t'))#最后一个为\t会删除掉
+            table[-1][-1] = table[-1][-1].strip()
+            # print(line, table[-1])
+    try:
+        assert len(set([len(i) for i in table]))==1
+    except Exception as e:
+        print(table, [len(i) for i in table])
+        raise Exception('fail to read csv file, different lengths of rows')
+    
+    return table
+
+def csv2CG(csv_file):
+    PAD = '[0]'
+    triples_cg = set()
+    entities_2_line = defaultdict(set)    
+    table = read_csv(csv_file)
+    all_lines_id = set()
+    cols = table[0] + ["row_number"]# 增加一列 row_number
+    for idx, rows in enumerate(table[1:]):
+        row_number = str(idx+1)
+        vals = rows + [row_number]
+        key = f'[line_{row_number}]'# 人工添加主键 头实体
+        all_lines_id.add(key)
+        for c,v in zip(cols,vals):
+            triples_cg.add((key, c, PAD))
+            triples_cg.add((c, v, key))
+            entities_2_line[(v, c)].add(key)
+            
+    entities = list(entities_2_line.keys())    
+    return {
+        'table_id': '1',
+        'triples': triples_cg,
+        'entities': entities,  #2-n行所有尾实体
+        'entities_2_line': entities_2_line,
+        'all_lines_id': all_lines_id, 
+        'relations': cols, #第一行
+    }

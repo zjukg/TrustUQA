@@ -36,13 +36,6 @@ def evaluate_metaqa(prediction, label):
 def evaluate(args):
     avg_deno_acc = []
 
-    # question_list = []
-    # with open("dynamic_final/metaqa/1hop_template_50/all_result.txt", "r") as f:
-    #     for line in f:
-    #         line = json.loads(line.strip())
-    #         question = line[list(line.keys())[0]]['question']
-    #         question_list.append(question)
-            
 
     with open(args.ori_path, 'r') as f:
         for line in f:
@@ -51,8 +44,6 @@ def evaluate(args):
             question = line[list(line.keys())[0]]['question']
             label = line[list(line.keys())[0]]['label']
             predictions = line[list(line.keys())[0]]['prediction']
-
-            # if(question not in question_list): continue
 
             prediction, idx = get_selfconsistency_res(predictions)
 

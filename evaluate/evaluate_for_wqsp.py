@@ -2,7 +2,10 @@ import argparse
 import json
 from collections import defaultdict
 import numpy as np    
-import evaluate_for_metaqa as metaqa
+try:
+    import evaluate_for_metaqa as metaqa
+except:
+    import evaluate.evaluate_for_metaqa as metaqa
 
 # def get_selfconsistency_res(prediction: list):
 #     def find_most_common_except_LineAndZero(prediction):

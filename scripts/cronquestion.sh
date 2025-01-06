@@ -5,7 +5,6 @@ python CGdata_for_cronquestion.py \
 --key api_key.txt --num_process 10 \
 --openai_url https://api.openai.com/v1/ \
 --folder_path dataset/CronQuestion_CG/kg.txt \
---train_folder_path dataset/CronQuestion_CG/qa_valid.jsonl \
 --data_path dataset/CronQuestion_CG/qa_test.jsonl \
 --prompt_path structllm/prompt_/CronQuestion.json \
 --SC_Num 5 \
